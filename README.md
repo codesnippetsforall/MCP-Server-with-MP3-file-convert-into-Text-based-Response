@@ -20,7 +20,8 @@ Python code straight from this GitHub repository. When you ask the assistant to 
 | `src/mp3_transcribe_mcp/core.py` | Split, transcribe and merge logic |
 | `src/mp3_transcribe_mcp/server.py` | MCP server (stdio) exposing the tools |
 | `src/mp3_transcribe_mcp/cli.py` | Same logic as a command-line tool |
-| `pyproject.toml` | Dependencies and the `mp3-transcribe-mcp` / `mp3-transcribe` commands |
+| `src/mp3_transcribe_mcp/selftest.py` | Test client that runs the MCP server end to end |
+| `pyproject.toml` | Dependencies and the `mp3-transcribe-mcp`, `mp3-transcribe` and `mp3-transcribe-mcp-test` commands |
 
 ## Setup (Option A: uvx, recommended)
 
@@ -130,14 +131,13 @@ uvx --from git+https://github.com/codesnippetsforall/MCP-Server-with-MP3-file-co
 
 Options: `--model`, `--language`, `--segment-seconds`, `--output-dir`, `--force`.
 
-## Test the server locally
+## Test the MCP server from a terminal
+
+Run from any folder; no clone needed:
 
 ```bash
-git clone https://github.com/codesnippetsforall/MCP-Server-with-MP3-file-convert-into-Text-based-Response.git
-cd MCP-Server-with-MP3-file-convert-into-Text-based-Response
-pip install .
-python examples/test_client.py path/to/meeting.mp3
+uvx --from git+https://github.com/codesnippetsforall/MCP-Server-with-MP3-file-convert-into-Text-based-Response.git mp3-transcribe-mcp-test path/to/meeting.mp3
 ```
 
 The test client starts the server over stdio (as an MCP client does), lists the tools, transcribes the file
-with progress output, and prints the result.
+with progress output, and prints the result. Options: `--model`, `--force`.

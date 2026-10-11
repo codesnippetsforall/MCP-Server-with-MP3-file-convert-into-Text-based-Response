@@ -17,6 +17,7 @@ dependencies = [
 [project.scripts]
 mp3-transcribe-mcp = "mp3_transcribe_mcp.server:main"
 mp3-transcribe = "mp3_transcribe_mcp.cli:main"
+mp3-transcribe-mcp-test = "mp3_transcribe_mcp.selftest:main"
 
 [tool.hatch.build.targets.wheel]
 packages = ["src/mp3_transcribe_mcp"]
