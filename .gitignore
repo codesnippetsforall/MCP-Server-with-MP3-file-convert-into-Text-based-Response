@@ -1,0 +1,22 @@
+# Personal audio and transcripts never leave the machine
+*.mp3
+*.wav
+*.m4a
+*.txt
+parts/
+transcripts/
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+build/
+dist/
+.venv/
+venv/
+
+# Local settings / secrets
+.env
+.env.*
+.cursor/
+.vscode/
