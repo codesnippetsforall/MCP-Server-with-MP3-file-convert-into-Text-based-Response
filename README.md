@@ -23,6 +23,30 @@ Python code straight from this GitHub repository. When you ask the assistant to 
 | `src/mp3_transcribe_mcp/selftest.py` | Test client that runs the MCP server end to end |
 | `pyproject.toml` | Dependencies and the `mp3-transcribe-mcp`, `mp3-transcribe` and `mp3-transcribe-mcp-test` commands |
 
+## With MCP vs without MCP
+
+The same GitHub project can be used in two ways. Both run the same code (`core.py`) on your machine and produce
+the same files. The difference is **who runs it and what happens to the result**.
+
+```
+With MCP:     You (chat) -> AI assistant -> MCP server (mp3-transcribe-mcp) -> core.py -> transcript returned to the chat
+Without MCP:  You (terminal) -> mp3-transcribe command -> core.py -> transcript saved to a .txt file
+```
+
+| | With MCP server | Without MCP (command line) |
+| --- | --- | --- |
+| How you ask | Plain language in chat: *"Transcribe C:\Music\call.mp3 with the small model"* | A typed command with options: `mp3-transcribe "C:\Music\call.mp3" --model small` |
+| Who runs it | The AI assistant picks the tool and options | You |
+| One-time setup | Install uv and add the server to the MCP client config | Install uv only |
+| How it starts | The MCP client starts the server and keeps it running for the session | Starts and exits for each command |
+| Whisper model loading | Loaded once and reused for later files in the session | Loaded again on every run |
+| Where the result goes | Saved to `.txt` **and** returned to the assistant, so you can ask follow-ups such as *"summarise this"* or *"list the interview questions"* | Saved to `.txt` only; you open the file yourself |
+| Progress | Shown in the chat tool call | Printed in the terminal |
+| Best for | Day-to-day use inside Cursor or Claude Desktop, and combining transcription with AI analysis | Scripts, batch jobs, or machines without an AI assistant |
+
+The `mp3-transcribe-mcp-test` command sits in between: it is run from a terminal, but it starts the MCP server and
+talks to it exactly as an AI assistant would, to check that the MCP route works.
+
 ## Setup (Option A: uvx, recommended)
 
 **1. Install uv** (one time):
